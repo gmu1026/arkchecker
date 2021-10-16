@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Character Register</title>
+</head>
+<div layout:fragment="content" class="container">
+  <form th:action="@{/character/register}" method="post">
+    <label for="name">닉네임</label>
+    <input type="text" id="name" name="name"><br>
+    <label for="classes">클래스</label>
+    <select id="classes" name="classes">
+      <option th:each="class:${classList}" th:value="${class.name}" th:text="${class.value}"></option>
+    </select><br>
+    <label for="itemLevel">아이템 레벨</label>
+    <input type="text" id="itemLevel" name="itemLevel"><br>
+    <label for="battelLevel">전투 레벨</label>
+    <input type="text" id="battelLevel" name="battleLevel"><br>
+    <input type="submit" value="register">
+  </form>
+</div>
+</html>

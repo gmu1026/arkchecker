@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Content Register</title>
+</head>
+<div layout:fragment="content" class="container">
+  <form th:action="@{/content/register}" method="post">
+    <label for="name">이름</label>
+    <input type="text" id="name" name="name"><br>
+    <label for="requireItemLevel">아이템 레벨 제한</label>
+    <input type="text" id="requireItemLevel" name="requireItemLevel"><br>
+    <label for="rewardGold">보상 골드</label>
+    <input type="text" id="rewardGold" name="rewardGold"><br>
+    <label for="contentType">컨텐츠 주기</label>
+    <select id="contentType" name="contentType">
+      <option th:each="type:${types}" th:value="${type.name}" th:text="${type.value}"></option>
+    </select><br>
+    <input type="submit" value="등록">
+  </form>
+</div>
+</html>

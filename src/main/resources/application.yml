@@ -1,0 +1,12 @@
+spring:
+  h2:
+    console:
+      enabled: true
+
+#server:
+#  error:
+#    include-exception: false
+#    include-stacktrace: never
+#    path: /error
+#    whitelabel:
+#      enabled: false

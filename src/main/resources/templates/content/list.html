@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Content list</title>
+</head>
+<div layout:fragment="content" class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>컨텐츠 명</th>
+        <th>요구레벨</th>
+        <th>보상 골드</th>
+        <th>컨텐츠 주기</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="content,i:${contents}">
+        <th th:text="${i.count}"></th>
+        <th th:text="${content.name}"></th>
+        <th th:text="${content.requireItemLevel}"></th>
+        <th th:text="${content.rewardGold}"></th>
+        <th th:text="${content.contentsType}"></th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Schedule List</title>
+</head>
+<div layout:fragment="content" class="container">
+  <div class="card text-center" id="characters">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item" th:each="character:${characters}">
+          <button class="nav-link" data-bs-toggle="tab" aria-current="true" th:text="${character.name}"></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <table class="table table-hover align-middle text-center" id="scheduleTable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>컨텐츠 명</th>
+        <th>클리어 여부</th>
+        <th>클리어 날짜</th>
+        <th>클리어 버튼</th>
+        <th style="display: none"></th>
+      </tr>
+    </thead>
+    <tbody id="scheduleTableBody">
+    </tbody>
+  </table>
+</div>
+</html>
+<script type="text/javascript">
+  function drawTable(data) {
+    $('#scheduleTableBody').empty();
+
+    var tableData;
+    for (var i = 0; i < data.length; i++) {
+      tableData += "<tr>";
+      tableData += "<td>" + (i+1) + "</td>";
+      tableData += "<td>" + data[i].content.name + "</td>";
+      if (data[i].clear != null) {
+        tableData += "<td>" + "O" + "</td>";
+        tableData += "<td>" + data[i].clearedDate + "</td>";
+      } else {
+        tableData += "<td>" + "X" + "</td>";
+        tableData += "<td>" + "-" + "</td>";
+      }
+      tableData += "<td>" + "<button class='btn btn-outline-dark' " +
+          "type='button'>Clear</button>" + "</td>";
+      tableData += "<td style='display: none'>" + data[i].id + "</td>";
+      tableData += "</tr>";
+      $('#scheduleTableBody').html(tableData);
+    }
+  }
+
+  function scheduleLoad(characterName) {
+    $.ajax({
+      url: 'http://localhost:8080/schedule/list/' + characterName,
+      contentType: 'application/json',
+    }).done(function(data) {
+      drawTable(data);
+    });
+  }
+
+  $('#characters').on('click', 'button', function() {
+    var characterName = $(this).text();
+    scheduleLoad(characterName);
+  })
+
+  $('#scheduleTable').on('click', 'button', function() {
+    var tr = $(this).parent().parent();
+    var td = tr.children();
+    var scheduleId = td.eq(5).text();
+    var characterName = td.eq(1).text();
+    var data = {
+      scheduleId: scheduleId,
+    }
+
+    $.ajax({
+      url: 'http://localhost:8080/schedule/clear',
+      method: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+    }).done(function() {
+      $('.nav-link').each(function() {
+
+        if ($(this).hasClass('active')) {
+          scheduleLoad($(this).text());
+        }
+      })
+    });
+  })
+</script>

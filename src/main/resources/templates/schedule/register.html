@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Schedule Register</title>
+</head>
+<div layout:fragment="content" class="container">
+  <form th:action="@{/schedule/register}" method="post">
+    <label for="characterName"></label>
+    <select id="characterName" name="characterName">
+      <option>캐릭터를 선택해주세요</option>
+      <option th:each="character:${characters}" th:value="${character.name}" th:text="${character.name}"></option>
+    </select>
+    <label for="contentName"></label>
+    <select id="contentName" name="contentName">
+      <option value="">캐릭터를 선택해주세요</option>
+    </select>
+    <input type="submit" value="등록">
+  </form>
+</div>
+</html>
+<script>
+  $('#characterName').change(function() {
+    $('#contentName').empty();
+
+    const selectedCharacter = $('#characterName option:selected').val();
+    $.ajax({
+      url: "http://localhost:8080/content/list/" + selectedCharacter,
+      contentType: "application/json",
+    }).done(function(data) {
+      for (var i = 0; i < data.length; i++) {
+        var option = $("<option>" + data[i].name + "</option>");
+        $('#contentName').append(option);
+      }
+    })
+  })
+</script>

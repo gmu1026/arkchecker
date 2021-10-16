@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Character</title>
+</head>
+<div layout:fragment="content" class="container">
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>캐릭터 명</th>
+          <th>클래스</th>
+          <th>아이템 레벨</th>
+          <th>전투 레벨</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="character,i:${list}">
+          <th th:text="${i.count}"></th>
+          <th th:text="${character.name}"></th>
+          <th th:text="${character.classes}"></th>
+          <th th:text="${character.itemLevel}"></th>
+          <th th:text="${character.battleLevel}"></th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</html>

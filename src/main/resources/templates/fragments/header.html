@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header class="p-3 bg-dark text-white" th:fragment="headerFragment">
+  <div class="container">
+    <div class="btn-group">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="characterMenuButton"
+                data-bs-toggle="dropdown" aria-expanded="false">
+          Character
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="characterMenuButton">
+          <li><a class="dropdown-item" href="/character/register">Register</a></li>
+          <li><a class="dropdown-item" href="/character/list">List</a></li>
+        </ul>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="contentMenuButton"
+                data-bs-toggle="dropdown" aria-expanded="false">
+          Content
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="contentMenuButton">
+          <li><a class="dropdown-item" href="/content/register">Register</a></li>
+          <li><a class="dropdown-item" href="/content/list">List</a></li>
+        </ul>
+      </div>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="scheduleMenuButton"
+                data-bs-toggle="dropdown" aria-expanded="false">
+          Schedule
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="scheduleMenuButton">
+          <li><a class="dropdown-item" href="/schedule/register">Register</a></li>
+          <li><a class="dropdown-item" href="/schedule/list">List</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+</html>
